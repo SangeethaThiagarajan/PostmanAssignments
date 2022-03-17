@@ -1,0 +1,119 @@
+{
+	"info": {
+		"_postman_id": "ce11c36b-52c2-4af8-9a53-3786dc7c590e",
+		"name": "Issues",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Issues in Jira",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://restapijira.atlassian.net/rest/api/2/search?jql=project=AP",
+					"protocol": "https",
+					"host": [
+						"restapijira",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"search"
+					],
+					"query": [
+						{
+							"key": "jql",
+							"value": "project=AP"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Issues in Jira within 24hrs",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://restapijira.atlassian.net/rest/api/2/search?jql=project=AP%26created>=-24h",
+					"protocol": "https",
+					"host": [
+						"restapijira",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"search"
+					],
+					"query": [
+						{
+							"key": "jql",
+							"value": "project=AP%26created>=-24h"
+						},
+						{
+							"key": "jql",
+							"value": "created>=1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "9Eu8M9bNE8GKmLP3zEAb3C7D",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "RestAPIJira@gmail.com",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
