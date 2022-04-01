@@ -1,0 +1,237 @@
+{
+	"info": {
+		"_postman_id": "e46e4d86-0871-438a-9d22-0f06ce36f579",
+		"name": "Issues in Jira/Chaining",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create request body/json Copy 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//any script or function which will execute after receiving the api response\r",
+							"//1. validate the status code is 201\r",
+							"pm.test(\"Validate the status code as 201\",function()\r",
+							"{\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"//2.take the response JSON\r",
+							"var res_json=pm.response.json();\r",
+							"//3. Traverse the JSON to the field sys_id\r",
+							"var local_sys_id = res_json.id;\r",
+							"//4. Gte the data for sys_id and store it in local variable{{{Optional}}}\r",
+							"\r",
+							"//5. Assign the value to global sys_id\r",
+							"pm.globals.set(\"Global_Var_Name\",local_sys_id);\r",
+							"\r",
+							"//Iterate through Array and print all sys id \r",
+							"// var size=res_json.result.length;\r",
+							"// for(var i=0;i<size;i++)\r",
+							"// {\r",
+							"//     var Final_Array_sysid_loop=res_json.result[i].id;\r",
+							"//     console.log(Final_Array_sysid_loop);\r",
+							"// }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n       \"project\":\r\n       {\r\n          \"key\": \"SP\"\r\n       },\r\n       \"summary\": \"Issue 1\",\r\n       \"description\": \"Updating an issue\",\r\n       \"issuetype\": {\r\n          \"name\": \"Bug\"\r\n       }\r\n   }\r\n}"
+				},
+				"url": {
+					"raw": "https://{{env_var_name}}/rest/api/2/{{collection_var_name}}",
+					"protocol": "https",
+					"host": [
+						"{{env_var_name}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"{{collection_var_name}}"
+					],
+					"query": [
+						{
+							"key": "sysparm_fields",
+							"value": "summary,description",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modify Record/json/modifydata Copy 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validate the status code as 200\",function()\r",
+							"{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n       \"project\":\r\n       {\r\n          \"key\": \"SP\"\r\n       },\r\n       \"summary\": \"Issue 1\",\r\n       \"description\": \"Creating of an issue123679y79\",\r\n       \"issuetype\": {\r\n          \"name\": \"Bug12\"\r\n       }\r\n   }\r\n}"
+				},
+				"url": {
+					"raw": "https://{{env_var_name}}/rest/api/2/{{collection_var_name}}/{{Global_Var_Name}}",
+					"protocol": "https",
+					"host": [
+						"{{env_var_name}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"{{collection_var_name}}",
+						"{{Global_Var_Name}}"
+					],
+					"query": [
+						{
+							"key": "sysparm_fields",
+							"value": "number,description,short_description,sys_id,category,priority",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Record Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validate the status code as 204\",function()\r",
+							"{\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{env_var_name}}/rest/api/2/{{collection_var_name}}/{{Global_Var_Name}}",
+					"protocol": "https",
+					"host": [
+						"{{env_var_name}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"{{collection_var_name}}",
+						"{{Global_Var_Name}}"
+					],
+					"query": [
+						{
+							"key": "sysparm_fields",
+							"value": "number,description,short_description,sys_id,category,priority",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "CbyYBDKvDsJJ1DWexrxd7046",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "thiagarajansangeetha@gmail.com",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "collection_var_name",
+			"value": "issue",
+			"type": "string"
+		}
+	]
+}
